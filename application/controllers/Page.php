@@ -111,11 +111,11 @@ class Page extends CI_Controller
             ];
             array_push($data['galery'], ['page' => 'detail']);
         } else {
-            
+
             $galery         = $this->m_data->get_data('galery')->result();
             $temp           = [];
             $data['galery'] = [];
-            
+
 
             foreach ($galery as $key => $value) {
                 $gd             = $this->db->query("SELECT * FROM galery_detail WHERE galery_id = '$value->galery_id' ")->result();
@@ -125,7 +125,6 @@ class Page extends CI_Controller
 
                 array_push($data['galery'], $temp);
             }
-
         }
 
         $data['berita']        = $this->m_data->get_data('artikel')->result();
@@ -138,6 +137,42 @@ class Page extends CI_Controller
 
         $this->load->view('frontend/v_header', $data);
         $this->load->view('frontend/v_galery', $data);
+        $this->load->view('frontend/v_footer', $data);
+    }
+
+    public function akademik($slug = NULL)
+    {
+        $where            = ['akademik_slug' => $slug];
+        $data['akademik'] = $this->m_data->get_detail($where, 'akademik')->row();
+
+        $data['berita']           = $this->m_data->get_data('artikel')->result();
+        $data['title']            = 'AKADEMIK';
+        // data pengaturan website
+        $data['pengaturan']       = $this->m_data->get_data('pengaturan')->row();
+        // SEO META
+        $data['meta_keyword']     = $data['pengaturan']->nama;
+        $data['meta_description'] = $data['pengaturan']->deskripsi;
+
+        $this->load->view('frontend/v_header', $data);
+        $this->load->view('frontend/v_akademik', $data);
+        $this->load->view('frontend/v_footer', $data);
+    }
+
+    public function akademik_sub($slug = NULL)
+    {
+        $where                = ['akademik_sub_slug' => $slug];
+        $data['akademik_sub'] = $this->m_data->get_detail($where, 'akademik_sub')->row();
+
+        $data['berita']           = $this->m_data->get_data('artikel')->result();
+        $data['title']            = 'AKADEMIK';
+        // data pengaturan website
+        $data['pengaturan']       = $this->m_data->get_data('pengaturan')->row();
+        // SEO META
+        $data['meta_keyword']     = $data['pengaturan']->nama;
+        $data['meta_description'] = $data['pengaturan']->deskripsi;
+
+        $this->load->view('frontend/v_header', $data);
+        $this->load->view('frontend/v_akademik_sub', $data);
         $this->load->view('frontend/v_footer', $data);
     }
 

@@ -44,7 +44,7 @@ class Akademik extends CI_Controller
         $this->form_validation->set_rules('judul', 'Judul', 'required');
         $this->form_validation->set_rules('konten', 'Konten', 'required');
         $this->form_validation->set_rules('status', 'Status', 'required');
-
+        
         if ($this->form_validation->run() != false) {
             $image                   = 'akademik-' . time() . '-' . $_FILES["sampul"]['name'];
             $config['file_name']     = $image;
@@ -68,7 +68,7 @@ class Akademik extends CI_Controller
                     'akademik_sub_status'  => $this->input->post('status'),
                     'id_pages'             => 4
                 ];
-
+               
                 $this->M_akademik->insert_data($data, 'akademik_sub');
             } else {
                 $data = [
@@ -116,7 +116,7 @@ class Akademik extends CI_Controller
         $this->form_validation->set_rules('judul', 'Judul', 'required');
         $this->form_validation->set_rules('konten', 'Konten', 'required');
         $this->form_validation->set_rules('status', 'Status', 'required');
-
+       
         if ($this->form_validation->run() != false) {
 
             if($this->input->post('id')){
@@ -132,7 +132,7 @@ class Akademik extends CI_Controller
                     'akademik_status'  => $this->input->post('status'),
                     'id_pages'          => 4
                 ];
-
+               
                 $this->M_akademik->update_data($where, $data, 'akademik');
             } else {
                 $akademik_sub_id = $this->input->post('akademik_sub_id');
@@ -147,12 +147,12 @@ class Akademik extends CI_Controller
                     'akademik_sub_status'  => $this->input->post('status'),
                     'id_pages'             => 4
                 ];
-
+                
                 $this->M_akademik->update_data($where, $data, 'akademik_sub');
             }
 
             if (!empty($_FILES['sampul']['name'])) {
-
+                $id = $this->input->post('id');
                 $where = ['akademik_id' => $id];
                 $single_data = $this->M_akademik->edit_data($where, 'akademik')->row();
 
@@ -169,16 +169,18 @@ class Akademik extends CI_Controller
                     $gambar = $this->upload->data();
 
                     if($this->input->post('id')){
+                        $where = ['akademik_id' => $this->input->post('id')];
                         $data = array(
                             'akademik_sampul' => $gambar['file_name']
                         );
 
                         $this->M_akademik->update_data($where, $data, 'akademik');
                     } else {
+                        $where = ['akademik_sub_id' => $this->input->post('akademik_sub_id')];
                         $data = array(
                             'akademik_sub_sampul' => $gambar['file_name']
                         );
-
+                       
                         $this->M_akademik->update_data($where, $data, 'akademik_sub');
                     }
 

@@ -118,7 +118,7 @@
                   </div>
                   <div class="submenu my-3 border-0 bg-white shadow rounded py-0 d-none" style="position:absolute; margin-left:237px; margin-top:101px!important; overflow:hidden;">
                     <?php foreach ($submenu['akademik_sub'] as $as) : ?>
-                      <a class="dropdown-item px-3 py-2" style="font-size: 13px;" href="<?= base_url('page/akademik/' . $as->akademik_sub_slug) ?>"><?= $as->akademik_sub_judul ?></a>
+                      <a class="dropdown-item px-3 py-2" style="font-size: 13px;" href="<?= base_url('page/akademik_sub/' . $as->akademik_sub_slug) ?>"><?= $as->akademik_sub_judul ?></a>
                     <?php endforeach ?>
                   </div>
                 <?php endif ?>
